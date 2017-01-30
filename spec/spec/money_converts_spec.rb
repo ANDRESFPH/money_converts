@@ -52,6 +52,7 @@ describe MoneyConverts do
       ten_eur = MoneyConverts.new(10, 'EUR')
 
       expect((fifty_eur * 2).amount).to eq 100
+      expect((fifty_eur / 2).amount).to eq 25
     end
   end
 end

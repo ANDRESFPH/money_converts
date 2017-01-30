@@ -45,6 +45,15 @@ class MoneyConverts
     end
   end
 
+  def /(value)
+    if value.is_a?(Numeric)
+      result = amount / value
+      MoneyConverts.new(result, currency)
+    else
+      operate_on_currency(value, :/)
+    end
+  end
+
 
   private
 
