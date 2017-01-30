@@ -1,10 +1,21 @@
 class MoneyConverts
 
+  include Comparable
+
   attr_accessor :amount, :currency
 
   def initialize(amount, currency)
     @amount = amount
     @currency = currency
+  end
+
+  def <=>(money)
+    if currency == money.currency
+      amount <=> money.amount
+    else
+      value = money.convert_to(currency)
+      amount <=> value.amount
+    end
   end
 
   def self.conversion_rates(base_currency, rates)

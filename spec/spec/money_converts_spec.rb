@@ -31,8 +31,11 @@ describe MoneyConverts do
       fifty_euros = MoneyConverts.new(50, 'EUR')
       fifty_eur = MoneyConverts.new(50, 'EUR')
       twenty_dollars = MoneyConverts.new(20, 'USD')
+      ten_eur = MoneyConverts.new(10, 'EUR')
 
       expect(fifty_euros == fifty_eur).to be true
+      expect(twenty_dollars > ten_eur).to be true
+      expect(twenty_dollars < fifty_eur).to be true
     end
   end
 end
