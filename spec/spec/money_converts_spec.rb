@@ -38,4 +38,20 @@ describe MoneyConverts do
       expect(twenty_dollars < fifty_eur).to be true
     end
   end
+
+  describe 'operations' do
+    it 'makes operations on currencies using + - * /' do
+      MoneyConverts.conversion_rates('EUR', {
+        'USD'     => 1.11,
+        'Bitcoin' => 0.0047
+      })
+
+      fifty_euros = MoneyConverts.new(50, 'EUR')
+      fifty_eur = MoneyConverts.new(50, 'EUR')
+      twenty_dollars = MoneyConverts.new(20, 'USD')
+      ten_eur = MoneyConverts.new(10, 'EUR')
+
+      expect((fifty_eur * 2).amount).to eq 100
+    end
+  end
 end
