@@ -1,0 +1,2 @@
+class MoneyConverts
+end
