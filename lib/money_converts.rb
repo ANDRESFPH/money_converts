@@ -57,6 +57,22 @@ class MoneyConverts
     end
   end
 
+  def +(value)
+    if value.is_a?(Numeric)
+      raise OperationNotPossible
+    else
+      operate_on_currency(value, :+)
+    end
+  end
+
+  def -(value)
+    if value.is_a?(Numeric)
+      raise OperationNotPossible
+    else
+      operate_on_currency(value, :-)
+    end
+  end
+
 
   private
 
@@ -65,7 +81,8 @@ class MoneyConverts
       result = value.amount.send(operator, amount)
       MoneyConverts.new(result, currency)
     else
-      result = value.convert_to(currency).amount.send(operator, amount)
+      same_currency = value.convert_to(currency)
+      result = amount.send(operator, same_currency.amount)
       MoneyConverts.new(result, currency)
     end
   end

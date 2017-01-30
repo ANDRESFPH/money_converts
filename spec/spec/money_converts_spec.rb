@@ -51,9 +51,18 @@ describe MoneyConverts do
       twenty_dollars = MoneyConverts.new(20, 'USD')
       ten_eur = MoneyConverts.new(10, 'EUR')
 
+      sum_result = fifty_eur + twenty_dollars
+      sum = 50 + (20/1.11)
+
+      subtraction_result =  fifty_eur - twenty_dollars
+      subtraction = 50 - (20/1.11)
+
       expect((fifty_eur * 2).amount).to eq 100
       expect((fifty_eur / 2).amount).to eq 25
       expect{ fifty_eur / 0 }.to raise_error(OperationNotPossible)
+      expect(sum_result.amount).to eq sum
+      expect(subtraction_result.amount).to eq subtraction
     end
   end
+
 end
