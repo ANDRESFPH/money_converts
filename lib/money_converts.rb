@@ -1,3 +1,4 @@
+require 'operation_not_possible'
 class MoneyConverts
 
   include Comparable
@@ -33,6 +34,56 @@ class MoneyConverts
     else
       base_currency = self.convert_to(@@base_currency)
       base_currency.convert_to(to_currency)
+    end
+  end
+
+  def *(value)
+    if value.is_a?(Numeric)
+      result = amount * value
+      MoneyConverts.new(result, currency)
+    else
+      operate_on_currency(value, :*)
+    end
+  end
+
+  def /(value)
+    if value.is_a?(Numeric)
+      raise OperationNotPossible if value.zero?
+      result = amount / value
+      MoneyConverts.new(result, currency)
+    else
+      raise OperationNotPossible if value.amount.zero?
+      operate_on_currency(value, :/)
+    end
+  end
+
+  def +(value)
+    if value.is_a?(Numeric)
+      raise OperationNotPossible
+    else
+      operate_on_currency(value, :+)
+    end
+  end
+
+  def -(value)
+    if value.is_a?(Numeric)
+      raise OperationNotPossible
+    else
+      operate_on_currency(value, :-)
+    end
+  end
+
+
+  private
+
+  def operate_on_currency(value, operator)
+    if value.currency == currency
+      result = value.amount.send(operator, amount)
+      MoneyConverts.new(result, currency)
+    else
+      same_currency = value.convert_to(currency)
+      result = amount.send(operator, same_currency.amount)
+      MoneyConverts.new(result, currency)
     end
   end
 
