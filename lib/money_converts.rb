@@ -20,6 +20,10 @@ class MoneyConverts
     end
   end
 
+  def inspect
+    "#{round_two_decimals(amount)} #{currency}"
+  end
+
   def self.conversion_rates(base_currency, rates)
     @@base_currency = base_currency
     @@rates = rates
@@ -77,6 +81,10 @@ class MoneyConverts
 
 
   private
+
+  def round_two_decimals(number)
+    '%.2f' % number
+  end
 
   def currency_not_existent?(currency)
     @@rates[currency].nil? && @@base_currency != currency

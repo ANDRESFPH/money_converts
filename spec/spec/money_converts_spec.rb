@@ -19,6 +19,7 @@ describe MoneyConverts do
         expect(fifty_euros.convert_to('USD').amount).to eq eur_to_dollar
         expect(twenty_dollars.convert_to('EUR').amount).to eq dollar_to_eur
         expect(twenty_dollars.convert_to('Bitcoin').amount).to eq dollar_to_bitcoin
+        expect(twenty_dollars.convert_to('EUR').inspect).to eq "18.02 EUR"
       end
     end
 
