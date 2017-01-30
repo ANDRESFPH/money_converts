@@ -9,4 +9,7 @@ Gem::Specification.new do |s|
   s.homepage    =
     'http://rubygems.org/gems/money_converts'
   s.license       = 'MIT'
+
+  # Dependencies
+  s.add_development_dependency "rspec"
 end
