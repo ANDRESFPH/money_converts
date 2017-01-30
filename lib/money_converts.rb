@@ -1,4 +1,5 @@
 require 'operation_not_possible'
+require 'no_conversion_for_currency'
 class MoneyConverts
 
   include Comparable
@@ -25,6 +26,7 @@ class MoneyConverts
   end
 
   def convert_to(to_currency)
+    raise NoConversionForCurrency if currency_not_existent?(to_currency)
     if currency == @@base_currency
       value = amount * @@rates[to_currency]
       MoneyConverts.new(value, to_currency)
@@ -75,6 +77,10 @@ class MoneyConverts
 
 
   private
+
+  def currency_not_existent?(currency)
+    @@rates[currency].nil? && @@base_currency != currency
+  end
 
   def operate_on_currency(value, operator)
     if value.currency == currency

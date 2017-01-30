@@ -1,0 +1,2 @@
+class NoConversionForCurrency < StandardError
+end
