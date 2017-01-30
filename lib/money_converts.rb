@@ -1,3 +1,4 @@
+require 'operation_not_possible'
 class MoneyConverts
 
   include Comparable
@@ -47,9 +48,11 @@ class MoneyConverts
 
   def /(value)
     if value.is_a?(Numeric)
+      raise OperationNotPossible if value.zero?
       result = amount / value
       MoneyConverts.new(result, currency)
     else
+      raise OperationNotPossible if value.amount.zero?
       operate_on_currency(value, :/)
     end
   end

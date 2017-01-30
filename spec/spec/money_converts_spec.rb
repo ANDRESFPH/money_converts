@@ -53,6 +53,7 @@ describe MoneyConverts do
 
       expect((fifty_eur * 2).amount).to eq 100
       expect((fifty_eur / 2).amount).to eq 25
+      expect{ fifty_eur / 0 }.to raise_error(OperationNotPossible)
     end
   end
 end

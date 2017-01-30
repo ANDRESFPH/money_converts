@@ -1,0 +1,2 @@
+class OperationNotPossible < StandardError
+end
