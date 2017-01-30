@@ -36,4 +36,26 @@ class MoneyConverts
     end
   end
 
+  def *(value)
+    if value.is_a?(Numeric)
+      result = amount * value
+      MoneyConverts.new(result, currency)
+    else
+      operate_on_currency(value, :*)
+    end
+  end
+
+
+  private
+
+  def operate_on_currency(value, operator)
+    if value.currency == currency
+      result = value.amount.send(operator, amount)
+      MoneyConverts.new(result, currency)
+    else
+      result = value.convert_to(currency).amount.send(operator, amount)
+      MoneyConverts.new(result, currency)
+    end
+  end
+
 end
